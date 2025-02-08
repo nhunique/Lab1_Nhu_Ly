@@ -70,22 +70,28 @@ struct ContentView: View {
     
     // Function to check if a number is prime
     func isPrime(_ number: Int) -> Bool {
+        print("checking number \(number) ...")
         guard number > 1 else {return false}
         for i in 2..<number {
             if number % i == 0 {
+                print("is prime: \(false)")
                 return false
             }
         }
+        print("is prime: \(true)")
         return true
     }
     
     // Function to validate the answer
     func checkAnswer(isPrimeChoice: Bool){
+        isPrimeChoice ? print("your choice: true") : print("your choice: false")
         if isPrime(currentNumber) == isPrimeChoice {
             score += 1
         } else {
             score -= 1
         }
+        print("score: \(score)")
+        print("--------------")
         generateNewNumber()
     }
     
