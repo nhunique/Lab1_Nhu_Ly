@@ -16,6 +16,10 @@ struct ContentView: View {
     @State private var score: Int = 0
     @State private var timeRemaining = 10
     @State private var isGameOver = false
+    @State private var wrongAnswers: Int = 0
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     
     var body: some View {
         
