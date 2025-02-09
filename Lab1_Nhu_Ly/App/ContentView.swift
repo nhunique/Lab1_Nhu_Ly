@@ -73,20 +73,20 @@ struct ContentView: View {
             // new number every 5 secs
             // without a user click, count as a wrong answer
             if timeRemaining == 0 {
-                wrongAnswers += 1
-                generateNewNumber()
-                timeRemaining = 5 //reset timer
+                attemptCount += 1
+                    wrongAnswers += 1
+                    print("miss - wrong: \(wrongAnswers)")
+                    print("score: \(score)")
+                    print("--------------")
+                if attemptCount < 10 {
+                    generateNewNumber()
+                    timeRemaining = 5 
+                } else {
+                    isGameOver = true
+                }
             }
         }
-        .alert("Your Score: \(score)", isPresented: $isGameOver) {
-            
-            Button("Play Again") {
-                resetGame()
-            }
-        } message: {
-            Text("✅ Correct Answers: \(score)\n❌ Wrong Answers: \(wrongAnswers)")
-            
-        }
+        .alert(isPresented: $isGameOver, content: gameOverDialog)
     }
         
         
@@ -103,8 +103,6 @@ struct ContentView: View {
     
     // Function to generate a new number
     func generateNewNumber() {
-        //upate attemptCount
-        attemptCount += 1
         currentNumber = Int.random(in: 2...100)
     }
     
@@ -124,27 +122,32 @@ struct ContentView: View {
     
     // Function to validate the answer
     func checkAnswer(isPrimeChoice: Bool){
+        //upate attemptCount
+        attemptCount += 1
+        
         isPrimeChoice ? print("your choice: true") : print("your choice: false")
         if isPrime(currentNumber) == isPrimeChoice {
             score += 1
         } else {
-            score -= 1
             wrongAnswers += 1
         }
-        print("score: \(score)")
-        print("--------------")
-        
+       
         //reset timer
         if(!isGameOver){
             timeRemaining = 5
             generateNewNumber()
+            print("wrong: \(wrongAnswers)")
+            print("score: \(score)")
+            print("--------------")
+            
         }
     }
     
     func resetGame() {
+        print("############-----------------------")
         score = 0
         wrongAnswers = 0
-        timeRemaining = 10
+        timeRemaining = 5
         isGameOver = false
         attemptCount = 0
         generateNewNumber()
