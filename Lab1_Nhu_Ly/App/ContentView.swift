@@ -9,12 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
         
-    @State var count = 0
-    @State var clock = "00:00"
-    
+    @State private var attemptCount = 0
     @State private var currentNumber: Int = 2
     @State private var score: Int = 0
-    @State private var timeRemaining = 10
+    @State private var timeRemaining = 5
     @State private var isGameOver = false
     @State private var wrongAnswers: Int = 0
     
@@ -25,7 +23,7 @@ struct ContentView: View {
         
         VStack {
             VStack{
-                Text("\(clock)")
+                Text("\(timeRemaining)")
             }
             VStack {
                 Text("\(currentNumber)")
@@ -59,16 +57,45 @@ struct ContentView: View {
             }
             Spacer()
             VStack(alignment: .leading) {
-                Text("\(count)")
+                Text("Attempt: \(attemptCount)")
             }
         }
         .padding()
+        .onReceive(timer){ _ in
+            guard attemptCount < 10 else {
+                isGameOver = true
+                return
+            }
+            
+            if timeRemaining > 0 {
+                timeRemaining -= 1
+            }
+            // new number every 5 secs
+            // without a user click, count as a wrong answer
+            if timeRemaining == 0 {
+                wrongAnswers += 1
+                generateNewNumber()
+                timeRemaining = 5 //reset timer
+            }
+        }
+        .alert("Your Score: \(score)", isPresented: $isGameOver) {
+            
+            Button("Play Again") {
+                resetGame()
+            }
+        } message: {
+            Text("✅ Correct Answers: \(score)\n❌ Wrong Answers: \(wrongAnswers)")
+            
+        }
     }
-    
+        
+        
     // ----- Functions Logic ------ //
     
     // Function to generate a new number
     func generateNewNumber() {
+        //upate attemptCount
+        attemptCount += 1
         currentNumber = Int.random(in: 2...100)
     }
     
@@ -93,9 +120,24 @@ struct ContentView: View {
             score += 1
         } else {
             score -= 1
+            wrongAnswers += 1
         }
         print("score: \(score)")
         print("--------------")
+        
+        //reset timer
+        if(!isGameOver){
+            timeRemaining = 5
+            generateNewNumber()
+        }
+    }
+    
+    func resetGame() {
+        score = 0
+        wrongAnswers = 0
+        timeRemaining = 10
+        isGameOver = false
+        attemptCount = 0
         generateNewNumber()
     }
     
