@@ -92,6 +92,15 @@ struct ContentView: View {
         
     // ----- Functions Logic ------ //
     
+    // Function to display game over dialog
+    func gameOverDialog() -> Alert {
+        Alert(
+            title: Text("Your score \(score)"),
+            message: Text("✅ Correct Answers: \(score)\n❌ Wrong Answers: \(wrongAnswers)"),
+            dismissButton: .default(Text("Play Again"), action: resetGame)
+        )
+    }
+    
     // Function to generate a new number
     func generateNewNumber() {
         //upate attemptCount
