@@ -143,7 +143,8 @@ struct ContentView: View {
         Alert(
             title: Text("Your score \(score)"),
             message: Text("✅ Correct Answers: \(score)\n❌ Wrong Answers: \(wrongAnswers)"),
-            dismissButton: .default(Text("Play Again"), action: resetGame)
+            primaryButton: .default(Text("Play Again"), action: resetGame),
+            secondaryButton: .destructive(Text("Quit Game"), action: { gameStarted = false })
         )
     }
     
