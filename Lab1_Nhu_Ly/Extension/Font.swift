@@ -18,6 +18,7 @@ extension Font.TextStyle {
         switch self {
         case .largeTitle: return 70
         case .title : return 40
+        case .caption: return 30
         default : return 30
         }
     }

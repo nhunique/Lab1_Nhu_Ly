@@ -30,17 +30,22 @@ struct ContentView: View {
                 // Show Start Screen
                 VStack {
                     Text("Are you ready?")
-                        .font(.largeTitle)
+                        .font(.pacifico(fontStyle: .title))
+                        .foregroundStyle(.gray)
                         .padding()
                     
                     Button(action: startGame) {
                         Text("Start Game")
                             .font(.title2)
                             .padding()
-                            .background(Color.mint)
                             .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .shadow(color: .mint, radius: 10, x: 0, y: 3)
+                            .background(
+                                ZStack {
+                                    LinearGradient(gradient: Gradient(colors: [Color.mint, Color(white: 0.8)]), startPoint: .top, endPoint: .bottom)
+                                        .cornerRadius(10)
+                                }
+                            )
+                            .shadow(color: .mint, radius: 5, x: 0, y: 3)
                     }
                 }
                 .transition(.opacity)
@@ -49,12 +54,13 @@ struct ContentView: View {
                 
                 VStack{
                     Text("\(timeRemaining)")
+                        .font(.headline)
                 }
                 Spacer()
                 VStack {
                     Text("\(currentNumber)")
                         .font(.pacifico(fontStyle: .largeTitle))
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.gray)
                         .padding()
                     Button {
                         checkAnswer(isPrimeChoice: true)
