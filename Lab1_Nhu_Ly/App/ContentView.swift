@@ -15,6 +15,8 @@ struct ContentView: View {
     @State private var timeRemaining = 5
     @State private var isGameOver = false
     @State private var wrongAnswers: Int = 0
+    @State private var isAnswerCorrect: Bool? = nil
+
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -25,6 +27,7 @@ struct ContentView: View {
             VStack{
                 Text("\(timeRemaining)")
             }
+            Spacer()
             VStack {
                 Text("\(currentNumber)")
                     .font(.pacifico(fontStyle: .largeTitle))
@@ -45,15 +48,15 @@ struct ContentView: View {
                     
                 }
             }
-            .padding()
-            VStack{
-                Image(systemName: "checkmark.circle.fill")
-                    .resizable()
-                    .frame(width: 70, height: 70)    .foregroundStyle(.green)
-                Image(systemName: "x.circle")
-                    .resizable()
-                    .frame(width: 70, height: 70)    .foregroundStyle(.red)
-                
+            Spacer()
+            ZStack{
+                if let isCorrect = isAnswerCorrect {
+                    Image(systemName: isCorrect ? "checkmark.circle.fill" : "x.circle.fill")
+                        .resizable()
+                        .frame(width: 70, height: 70)
+                        .foregroundStyle(isCorrect ? .green : .red)
+                        .transition(.opacity)
+                }
             }
             Spacer()
             VStack(alignment: .leading) {
@@ -128,8 +131,10 @@ struct ContentView: View {
         isPrimeChoice ? print("your choice: true") : print("your choice: false")
         if isPrime(currentNumber) == isPrimeChoice {
             score += 1
+            isAnswerCorrect = true
         } else {
             wrongAnswers += 1
+            isAnswerCorrect = false
         }
        
         //reset timer
