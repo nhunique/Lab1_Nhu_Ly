@@ -30,16 +30,17 @@ struct ContentView: View {
                 // Show Start Screen
                 VStack {
                     Text("Are you ready?")
-                        .font(.title)
+                        .font(.largeTitle)
                         .padding()
                     
                     Button(action: startGame) {
                         Text("Start Game")
-                            .font(.headline)
+                            .font(.title2)
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.mint)
                             .foregroundColor(.white)
                             .cornerRadius(10)
+                            .shadow(color: .mint, radius: 10, x: 0, y: 3)
                     }
                 }
                 .transition(.opacity)
