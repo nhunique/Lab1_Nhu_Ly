@@ -82,13 +82,13 @@ struct ContentView: View {
                 ZStack {
                     Image(systemName: "checkmark.circle.fill")
                         .resizable()
-                        .frame(width: 70, height: 70)
+                        .frame(width: 120, height: 120)
                         .foregroundStyle(.green)
                         .opacity(isAnswerCorrect == true ? 1 : 0)
                     
                     Image(systemName: "x.circle.fill")
                         .resizable()
-                        .frame(width: 70, height: 70)
+                        .frame(width: 120, height: 120)
                         .foregroundStyle(.red)
                         .opacity(isAnswerCorrect == false ? 1 : 0)
                 }
@@ -102,10 +102,7 @@ struct ContentView: View {
                 .padding()
                 
                 .onReceive(timer){ _ in
-                    guard attemptCount < 10 else {
-                        isGameOver = true
-                        return
-                    }
+                    
                     guard gameStarted, attemptCount < 10 else {
                         isGameOver = true
                         return
