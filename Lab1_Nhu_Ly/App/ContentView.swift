@@ -96,9 +96,18 @@ struct ContentView: View {
                 .animation(.easeInOut(duration: 0.5), value: isAnswerCorrect)
                 
                 Spacer()
-                VStack(alignment: .leading) {
+                HStack(alignment: .center) {
                     Text("Attempt: \(attemptCount)")
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.green)
+                        .padding()
+                    Button(action: {
+                        exit(0)
+                    }) {
+                        Text("Quit Game")
+                            .foregroundColor(.red)
+                    }
+                    .padding()
+
                 }
                 
                 .padding()
@@ -150,7 +159,8 @@ struct ContentView: View {
             title: Text("Your score \(score)"),
             message: Text("✅ Correct Answers: \(score)\n❌ Wrong Answers: \(wrongAnswers)"),
             primaryButton: .default(Text("Play Again"), action: resetGame),
-            secondaryButton: .destructive(Text("Quit Game"), action: { gameStarted = false })
+            secondaryButton: .destructive(Text("Cancel"), action: { gameStarted = false
+            })
         )
     }
     
