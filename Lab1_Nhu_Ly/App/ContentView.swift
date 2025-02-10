@@ -98,6 +98,7 @@ struct ContentView: View {
                 Spacer()
                 VStack(alignment: .leading) {
                     Text("Attempt: \(attemptCount)")
+                        .foregroundStyle(.red)
                 }
                 
                 .padding()
