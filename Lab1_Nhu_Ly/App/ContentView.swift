@@ -54,7 +54,8 @@ struct ContentView: View {
                 
                 VStack{
                     Text("\(timeRemaining)")
-                        .font(.headline)
+                        .font(.title)
+                        .foregroundStyle(.red)
                 }
                 Spacer()
                 VStack {
