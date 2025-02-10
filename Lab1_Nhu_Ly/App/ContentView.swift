@@ -41,11 +41,11 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .background(
                                 ZStack {
-                                    LinearGradient(gradient: Gradient(colors: [Color.mint, Color(white: 0.8)]), startPoint: .top, endPoint: .bottom)
-                                        .cornerRadius(10)
+                                    LinearGradient(gradient: Gradient(colors: [Color.blue, Color(white: 0.8)]), startPoint: .leading, endPoint: .trailing)
+                                        .cornerRadius(15)
                                 }
                             )
-                            .shadow(color: .mint, radius: 5, x: 0, y: 3)
+                            .shadow(color: .blue, radius: 5, x: 0, y: 3)
                     }
                 }
                 .transition(.opacity)
